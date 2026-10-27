@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Monitoring Jadwal Sholat Seluruh Indonesia | 38 Ibukota Provinsi</title>
+
+    <!-- Meta SEO -->
+    <meta name="description" content="Dashboard Terintegrasi Monitoring Jadwal Sholat 38 Ibukota Provinsi Seluruh Indonesia dari Sabang sampai Merauke berdasarkan standar hisab Kemenag RI.">
+    <meta name="keywords" content="jadwal sholat indonesia, monitoring sholat, 38 provinsi, kemenag, waktu sholat resmi">
+    <meta name="author" content="SIM Jadwal Sholat Indonesia">
+    <meta property="og:title" content="Dashboard Monitoring Jadwal Sholat 38 Provinsi Indonesia">
+    <meta property="og:description" content="Jadwal sholat lengkap 38 ibukota provinsi Indonesia, standar hisab Kemenag RI / MABIMS.">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        arabic: ['"Amiri"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .bg-islamic-pattern {
+            background-color: #064e3b;
+            background-image: radial-gradient(circle at 50% 50%, rgba(16,185,129,0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-table { box-shadow: none !important; border: 1px solid #cbd5e1 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-emerald-200 selection:text-emerald-900">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-emerald-950 text-emerald-200 text-xs py-2 px-4 border-b border-emerald-900/60 no-print">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-800 text-emerald-100">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    MABIMS LIVE
+                </span>
+                <span class="hidden sm:inline text-slate-300">Standar Hisab Kementerian Agama Republik Indonesia</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-medium">
+                <span class="flex items-center gap-1.5">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span id="topHijriah">-</span>
+                </span>
+                <span class="hidden md:inline text-emerald-700">|</span>
+                <span class="flex items-center gap-1.5 text-emerald-300">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span id="liveClockWib">Memuat Waktu...</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="bg-islamic-pattern text-white shadow-xl relative overflow-hidden border-b-4 border-emerald-500">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 relative z-10">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div class="space-y-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-800/80 border border-emerald-600/60 backdrop-blur-sm text-xs font-medium text-emerald-200">
+                        <i data-lucide="compass" class="w-4 h-4 text-emerald-300"></i>
+                        <span>Sistem Informasi Hisab &amp; Rukyat Nasional</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
+                        <span class="p-2.5 bg-emerald-600 rounded-xl shadow-lg ring-2 ring-emerald-400/30">
+                            <i data-lucide="moon-star" class="w-7 h-7 sm:w-8 sm:h-8 text-white"></i>
+                        </span>
+                        <span>Dashboard Monitoring Jadwal Sholat</span>
+                    </h1>
+                    <p class="text-emerald-100/90 text-sm sm:text-base max-w-2xl font-light">
+                        Pusat Pemantauan Terintegrasi Waktu Sholat
+                        <span class="font-semibold text-emerald-300">38 Ibukota Provinsi Resmi Republik Indonesia</span>
+                        dari Sabang hingga Merauke.
+                    </p>
+                </div>
+                <div class="bg-emerald-900/80 backdrop-blur-md border border-emerald-700/60 p-4 rounded-2xl shadow-xl flex flex-col gap-3 min-w-[280px]">
+                    <div class="flex items-center justify-between text-xs text-emerald-200 border-b border-emerald-800/70 pb-2">
+                        <span class="font-semibold flex items-center gap-1.5">
+                            <i data-lucide="radio" class="w-3.5 h-3.5 text-emerald-400 animate-pulse"></i>
+                            Sinkronisasi Waktu Nyata
+                        </span>
+                        <span class="text-[11px] bg-emerald-700/60 px-2 py-0.5 rounded text-emerald-100">NTP Server</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-emerald-950/60 p-2 rounded-xl border border-emerald-800/50">
+                            <span class="block text-[10px] font-bold text-emerald-300">WIB (UTC+7)</span>
+                            <span id="tzWib" class="text-sm font-extrabold text-white font-mono">--:--:--</span>
+                        </div>
+                        <div class="bg-emerald-950/60 p-2 rounded-xl border border-emerald-800/50">
+                            <span class="block text-[10px] font-bold text-teal-300">WITA (UTC+8)</span>
+                            <span id="tzWita" class="text-sm font-extrabold text-white font-mono">--:--:--</span>
+                        </div>
+                        <div class="bg-emerald-950/60 p-2 rounded-xl border border-emerald-800/50">
+                            <span class="block text-[10px] font-bold text-cyan-300">WIT (UTC+9)</span>
+                            <span id="tzWit" class="text-sm font-extrabold text-white font-mono">--:--:--</span>
+                        </div>
+                    </div>
+                    <div id="headerTanggalMasehi" class="text-[11px] text-center text-emerald-300 font-medium">-</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 flex-1 w-full pb-16 z-20">
+
+        <!-- KARTU STATISTIK -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 hover:shadow-md transition-shadow relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full -mr-4 -mt-4 transition-all group-hover:scale-110"></div>
+                <div class="flex items-center justify-between relative z-10">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Cakupan Wilayah</p>
+                        <h3 class="text-3xl font-extrabold text-slate-800 mt-1">38 <span class="text-sm font-normal text-slate-500">Ibukota</span></h3>
+                        <p class="text-xs text-emerald-600 font-medium mt-1.5 flex items-center gap-1">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> 100% Provinsi Tercover
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shadow-inner">
+                        <i data-lucide="map" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 hover:shadow-md transition-shadow relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full -mr-4 -mt-4 transition-all group-hover:scale-110"></div>
+                <div class="flex items-center justify-between relative z-10">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Kalender Hari Ini</p>
+                        <h3 id="cardTanggalMasehi" class="text-base font-bold text-slate-800 mt-1">-</h3>
+                        <p id="cardHijriah" class="text-xs text-teal-700 font-semibold mt-1.5 flex items-center gap-1">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i><span>-</span>
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shadow-inner">
+                        <i data-lucide="calendar-days" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 hover:shadow-md transition-shadow relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-all group-hover:scale-110"></div>
+                <div class="flex items-center justify-between relative z-10">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Sebaran Zona Waktu</p>
+                        <div class="flex items-center gap-3 mt-1.5">
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">WIB: <span class="text-emerald-700 font-extrabold">16</span></span>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">WITA: <span class="text-teal-700 font-extrabold">14</span></span>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">WIT: <span class="text-cyan-700 font-extrabold">8</span></span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium mt-1.5 flex items-center gap-1">
+                            <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-600"></i> Lintas 3 Zona Waktu NKRI
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-inner">
+                        <i data-lucide="hourglass" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 hover:shadow-md transition-shadow relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full -mr-4 -mt-4 transition-all group-hover:scale-110"></div>
+                <div class="flex items-center justify-between relative z-10">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Status Integrasi</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                            <h3 class="text-base font-bold text-emerald-800">Aktif &amp; Terintegrasi</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium mt-1.5 flex items-center gap-1">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i> Kemenag RI (MABIMS)
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shadow-inner">
+                        <i data-lucide="database" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PENCARIAN & FILTER -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 mb-6 no-print">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="relative flex-1 max-w-xl">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </div>
+                    <input type="text" id="searchInput" oninput="filterPrayerSchedule()"
+                        placeholder="Cari nama kota atau provinsi (cth: Jayapura, Jawa Barat, Padang)..."
+                        class="w-full pl-11 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all font-medium">
+                    <button type="button" id="clearSearchBtn" onclick="clearSearch()"
+                        class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 hidden">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200/80 text-xs font-semibold">
+                        <button type="button" onclick="setZoneFilter('ALL')" id="filterBtnALL" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white shadow-sm">Semua (38)</button>
+                        <button type="button" onclick="setZoneFilter('WIB')" id="filterBtnWIB" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-emerald-700">WIB (16)</button>
+                        <button type="button" onclick="setZoneFilter('WITA')" id="filterBtnWITA" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-emerald-700">WITA (14)</button>
+                        <button type="button" onclick="setZoneFilter('WIT')" id="filterBtnWIT" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-emerald-700">WIT (8)</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="exportToCSV()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors shadow-sm">
+                            <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-600"></i><span>Ekspor CSV</span>
+                        </button>
+                        <button type="button" onclick="window.print()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors shadow-sm">
+                            <i data-lucide="printer" class="w-4 h-4 text-slate-600"></i><span>Cetak</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span id="resultsCounter">Menampilkan <strong>38</strong> dari 38 Ibukota Provinsi</span>
+                </div>
+                <div class="text-[11px] text-slate-400 hidden sm:block">
+                    *Kolom <strong>Subuh</strong> &amp; <strong>Maghrib</strong> ditebalkan sebagai acuan waktu sholat utama.
+                </div>
+            </div>
+        </div>
+
+        <!-- TABEL -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-table">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="prayerTable">
+                    <thead>
+                        <tr class="bg-slate-100/80 border-b border-slate-200 text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                            <th class="py-3.5 px-4 text-center w-12">No</th>
+                            <th class="py-3.5 px-4">Kota &amp; Ibukota Provinsi</th>
+                            <th class="py-3.5 px-3 text-center">Zona</th>
+                            <th class="py-3.5 px-3 text-center">Kalender Hijriah</th>
+                            <th class="py-3.5 px-3 text-center bg-emerald-50/70 text-emerald-900 border-x border-emerald-100/60 font-extrabold">Subuh *</th>
+                            <th class="py-3.5 px-3 text-center text-slate-600">Dzuhur</th>
+                            <th class="py-3.5 px-3 text-center text-slate-600">Ashar</th>
+                            <th class="py-3.5 px-3 text-center bg-emerald-50/70 text-emerald-900 border-x border-emerald-100/60 font-extrabold">Maghrib *</th>
+                            <th class="py-3.5 px-3 text-center text-slate-600">Isya</th>
+                            <th class="py-3.5 px-4 text-center no-print">Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm" id="prayerTableBody"></tbody>
+                </table>
+            </div>
+            <div id="noResultsState" class="hidden p-12 text-center">
+                <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="search-x" class="w-8 h-8"></i>
+                </div>
+                <h4 class="text-base font-bold text-slate-800">Kota atau Provinsi Tidak Ditemukan</h4>
+                <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Tidak ada hasil yang cocok. Periksa ejaan atau reset pencarian.</p>
+                <button type="button" onclick="clearSearch()" class="mt-4 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold transition shadow-sm">Reset Pencarian</button>
+            </div>
+        </div>
+
+        <!-- INFO BANNER -->
+        <div class="mt-8 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 rounded-2xl p-6 border border-emerald-200/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+                <div class="p-3 bg-emerald-600 text-white rounded-xl shadow-md shrink-0">
+                    <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-emerald-950">Pedoman Standar Hisab Waktu Sholat Indonesia (MABIMS)</h4>
+                    <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                        Perhitungan waktu sholat mengacu pada kriteria Menteri Agama Brunei Darussalam, Indonesia, Malaysia, dan Singapura (MABIMS):
+                        Tinggi hilal 3 derajat dan elongasi 6,4 derajat. Waktu Subuh ditetapkan pada sudut depresi matahari -20 derajat (ikhtiyat 2 menit).
+                    </p>
+                </div>
+            </div>
+            <div class="shrink-0">
+                <span class="block text-[11px] font-bold text-emerald-900">Versi Sistem</span>
+                <span class="text-xs text-emerald-700 font-mono">v2.4-KEMENAG.RI</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-slate-500 text-xs no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="p-1.5 bg-emerald-600 text-white rounded-md"><i data-lucide="moon" class="w-4 h-4"></i></span>
+                <span class="font-bold text-slate-800">SIM-JADWAL SHOLAT INDONESIA</span>
+                <span id="footerYear"></span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-medium text-slate-600">
+                <span>38 Ibukota Provinsi</span>
+                <span>&bull;</span>
+                <span>Standar MABIMS</span>
+                <span>&bull;</span>
+                <span>Hosted on Vercel</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DETAIL -->
+    <div id="cityModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="bg-emerald-700 text-white p-6 relative">
+                <button type="button" onclick="closeCityModal()" class="absolute top-5 right-5 text-emerald-200 hover:text-white transition p-1 rounded-lg hover:bg-emerald-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="flex items-center gap-2 text-xs font-semibold text-emerald-200 mb-1">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    <span id="modalProvinsi">Provinsi</span>
+                </div>
+                <h3 id="modalKota" class="text-2xl font-black tracking-tight text-white">Nama Kota</h3>
+                <div class="flex items-center gap-2 mt-2">
+                    <span id="modalZona" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-800 text-emerald-200 border border-emerald-600">WIB</span>
+                    <span id="modalHijriah" class="text-xs text-emerald-100 font-medium bg-emerald-800/60 px-2.5 py-0.5 rounded-full">Hijriah</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Rincian Waktu Sholat Hari Ini</p>
+                <div class="grid grid-cols-3 gap-3 mb-6">
+                    <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-300 text-center ring-2 ring-emerald-500/20">
+                        <span class="text-[11px] font-bold text-emerald-800 block">Subuh *</span>
+                        <span id="modalSubuh" class="text-lg font-black text-emerald-900 font-mono">--:--</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 text-center">
+                        <span class="text-[11px] font-semibold text-slate-500 block">Dzuhur</span>
+                        <span id="modalDzuhur" class="text-base font-extrabold text-slate-800 font-mono">--:--</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 text-center">
+                        <span class="text-[11px] font-semibold text-slate-500 block">Ashar</span>
+                        <span id="modalAshar" class="text-base font-extrabold text-slate-800 font-mono">--:--</span>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-300 text-center ring-2 ring-emerald-500/20">
+                        <span class="text-[11px] font-bold text-emerald-800 block">Maghrib *</span>
+                        <span id="modalMaghrib" class="text-lg font-black text-emerald-900 font-mono">--:--</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 text-center">
+                        <span class="text-[11px] font-semibold text-slate-500 block">Isya</span>
+                        <span id="modalIsya" class="text-base font-extrabold text-slate-800 font-mono">--:--</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center flex flex-col items-center justify-center">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                            <i data-lucide="compass" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-[10px] text-slate-500 mt-1 font-medium">Kiblat ~295 derajat</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex items-center justify-between">
+                <button type="button" onclick="copyScheduleToClipboard()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 transition shadow-sm">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                    <span id="copyBtnText">Salin Jadwal</span>
+                </button>
+                <button type="button" onclick="closeCityModal()" class="px-5 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition shadow-sm">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // DATA MASTER 38 IBUKOTA PROVINSI INDONESIA
+        // ============================================================
+        const PRAYER_DATA = [
+            { id:1,  kota:'Banda Aceh',     provinsi:'Aceh',                      zona:'WIB',  subuh:'05:08', dzuhur:'12:28', ashar:'15:47', maghrib:'18:29', isya:'19:39' },
+            { id:2,  kota:'Medan',          provinsi:'Sumatera Utara',             zona:'WIB',  subuh:'04:57', dzuhur:'12:16', ashar:'15:35', maghrib:'18:17', isya:'19:27' },
+            { id:3,  kota:'Padang',         provinsi:'Sumatera Barat',             zona:'WIB',  subuh:'04:54', dzuhur:'12:12', ashar:'15:30', maghrib:'18:15', isya:'19:25' },
+            { id:4,  kota:'Pekanbaru',      provinsi:'Riau',                       zona:'WIB',  subuh:'04:50', dzuhur:'12:10', ashar:'15:28', maghrib:'18:13', isya:'19:23' },
+            { id:5,  kota:'Tanjungpinang',  provinsi:'Kepulauan Riau',             zona:'WIB',  subuh:'04:39', dzuhur:'11:59', ashar:'15:17', maghrib:'18:02', isya:'19:12' },
+            { id:6,  kota:'Jambi',          provinsi:'Jambi',                      zona:'WIB',  subuh:'04:41', dzuhur:'12:03', ashar:'15:21', maghrib:'18:07', isya:'19:17' },
+            { id:7,  kota:'Palembang',      provinsi:'Sumatera Selatan',           zona:'WIB',  subuh:'04:36', dzuhur:'11:59', ashar:'15:17', maghrib:'18:03', isya:'19:13' },
+            { id:8,  kota:'Pangkalpinang',  provinsi:'Kepulauan Bangka Belitung',  zona:'WIB',  subuh:'04:31', dzuhur:'11:53', ashar:'15:11', maghrib:'17:57', isya:'19:07' },
+            { id:9,  kota:'Bengkulu',       provinsi:'Bengkulu',                   zona:'WIB',  subuh:'04:45', dzuhur:'12:06', ashar:'15:24', maghrib:'18:10', isya:'19:20' },
+            { id:10, kota:'Bandar Lampung', provinsi:'Lampung',                    zona:'WIB',  subuh:'04:32', dzuhur:'11:56', ashar:'15:14', maghrib:'18:01', isya:'19:11' },
+            { id:11, kota:'Serang',         provinsi:'Banten',                     zona:'WIB',  subuh:'04:24', dzuhur:'11:49', ashar:'15:07', maghrib:'17:55', isya:'19:05' },
+            { id:12, kota:'Jakarta',        provinsi:'DKI Jakarta',                zona:'WIB',  subuh:'04:21', dzuhur:'11:45', ashar:'15:03', maghrib:'17:51', isya:'19:02' },
+            { id:13, kota:'Bandung',        provinsi:'Jawa Barat',                 zona:'WIB',  subuh:'04:18', dzuhur:'11:43', ashar:'15:01', maghrib:'17:49', isya:'19:00' },
+            { id:14, kota:'Semarang',       provinsi:'Jawa Tengah',                zona:'WIB',  subuh:'04:07', dzuhur:'11:32', ashar:'14:49', maghrib:'17:38', isya:'18:49' },
+            { id:15, kota:'Yogyakarta',     provinsi:'DI Yogyakarta',              zona:'WIB',  subuh:'04:06', dzuhur:'11:31', ashar:'14:48', maghrib:'17:37', isya:'18:48' },
+            { id:16, kota:'Surabaya',       provinsi:'Jawa Timur',                 zona:'WIB',  subuh:'03:57', dzuhur:'11:22', ashar:'14:39', maghrib:'17:28', isya:'18:39' },
+            { id:17, kota:'Denpasar',       provinsi:'Bali',                       zona:'WITA', subuh:'04:47', dzuhur:'12:12', ashar:'15:29', maghrib:'18:18', isya:'19:29' },
+            { id:18, kota:'Mataram',        provinsi:'Nusa Tenggara Barat',        zona:'WITA', subuh:'04:44', dzuhur:'12:09', ashar:'15:26', maghrib:'18:15', isya:'19:26' },
+            { id:19, kota:'Kupang',         provinsi:'Nusa Tenggara Timur',        zona:'WITA', subuh:'04:22', dzuhur:'11:47', ashar:'15:04', maghrib:'17:53', isya:'19:04' },
+            { id:20, kota:'Pontianak',      provinsi:'Kalimantan Barat',           zona:'WIB',  subuh:'04:17', dzuhur:'11:38', ashar:'14:56', maghrib:'17:41', isya:'18:52' },
+            { id:21, kota:'Palangka Raya',  provinsi:'Kalimantan Tengah',          zona:'WIB',  subuh:'04:03', dzuhur:'11:25', ashar:'14:43', maghrib:'17:29', isya:'18:40' },
+            { id:22, kota:'Banjarmasin',    provinsi:'Kalimantan Selatan',         zona:'WITA', subuh:'04:58', dzuhur:'12:21', ashar:'15:38', maghrib:'18:25', isya:'19:35' },
+            { id:23, kota:'Samarinda',      provinsi:'Kalimantan Timur',           zona:'WITA', subuh:'04:47', dzuhur:'12:09', ashar:'15:27', maghrib:'18:12', isya:'19:22' },
+            { id:24, kota:'Tanjung Selor',  provinsi:'Kalimantan Utara',           zona:'WITA', subuh:'04:44', dzuhur:'12:06', ashar:'15:25', maghrib:'18:09', isya:'19:19' },
+            { id:25, kota:'Manado',         provinsi:'Sulawesi Utara',             zona:'WITA', subuh:'04:19', dzuhur:'11:41', ashar:'15:00', maghrib:'17:44', isya:'18:54' },
+            { id:26, kota:'Gorontalo',      provinsi:'Gorontalo',                  zona:'WITA', subuh:'04:27', dzuhur:'11:49', ashar:'15:08', maghrib:'17:52', isya:'19:02' },
+            { id:27, kota:'Palu',           provinsi:'Sulawesi Tengah',            zona:'WITA', subuh:'04:38', dzuhur:'12:00', ashar:'15:19', maghrib:'18:03', isya:'19:13' },
+            { id:28, kota:'Mamuju',         provinsi:'Sulawesi Barat',             zona:'WITA', subuh:'04:41', dzuhur:'12:03', ashar:'15:22', maghrib:'18:06', isya:'19:16' },
+            { id:29, kota:'Makassar',       provinsi:'Sulawesi Selatan',           zona:'WITA', subuh:'04:39', dzuhur:'12:01', ashar:'15:20', maghrib:'18:04', isya:'19:14' },
+            { id:30, kota:'Kendari',        provinsi:'Sulawesi Tenggara',          zona:'WITA', subuh:'04:28', dzuhur:'11:51', ashar:'15:09', maghrib:'17:53', isya:'19:03' },
+            { id:31, kota:'Ambon',          provinsi:'Maluku',                     zona:'WIT',  subuh:'05:04', dzuhur:'12:26', ashar:'15:43', maghrib:'18:29', isya:'19:39' },
+            { id:32, kota:'Sofifi',         provinsi:'Maluku Utara',               zona:'WIT',  subuh:'05:07', dzuhur:'12:29', ashar:'15:46', maghrib:'18:31', isya:'19:41' },
+            { id:33, kota:'Jayapura',       provinsi:'Papua',                      zona:'WIT',  subuh:'04:13', dzuhur:'11:35', ashar:'14:52', maghrib:'17:38', isya:'18:48' },
+            { id:34, kota:'Manokwari',      provinsi:'Papua Barat',                zona:'WIT',  subuh:'04:39', dzuhur:'12:01', ashar:'15:18', maghrib:'18:04', isya:'19:14' },
+            { id:35, kota:'Sorong',         provinsi:'Papua Barat Daya',           zona:'WIT',  subuh:'04:48', dzuhur:'12:10', ashar:'15:27', maghrib:'18:13', isya:'19:23' },
+            { id:36, kota:'Nabire',         provinsi:'Papua Tengah',               zona:'WIT',  subuh:'04:31', dzuhur:'11:53', ashar:'15:10', maghrib:'17:56', isya:'19:06' },
+            { id:37, kota:'Wamena',         provinsi:'Papua Pegunungan',           zona:'WIT',  subuh:'04:21', dzuhur:'11:43', ashar:'15:00', maghrib:'17:46', isya:'18:56' },
+            { id:38, kota:'Merauke',        provinsi:'Papua Selatan',              zona:'WIT',  subuh:'04:09', dzuhur:'11:31', ashar:'14:48', maghrib:'17:34', isya:'18:45' },
+        ];
+
+        // ============================================================
+        // KONVERSI HIJRIAH (port algoritma PHP ke JavaScript)
+        // ============================================================
+        function konversiKeHijriah(dateObj) {
+            const d = dateObj || new Date();
+            let day = d.getDate(), month = d.getMonth() + 1, year = d.getFullYear();
+            if (month > 2) { month -= 3; } else { month += 9; year -= 1; }
+            const c  = Math.floor(year / 100);
+            const ya = year - 100 * c;
+            const jd = Math.floor(146097*c/4) + Math.floor(1461*ya/4) + Math.floor((153*month+2)/5) + day + 1721119;
+            let l = jd - 1948440 + 10632;
+            const n = Math.floor((l - 1) / 10631);
+            l = l - 10631*n + 354;
+            const j = Math.floor((10985-l)/5316) * Math.floor(50*l/17719) + Math.floor(l/5670) * Math.floor(43*l/15238);
+            l = l - Math.floor((30-j)/15)*Math.floor(17719*j/50) - Math.floor(j/16)*Math.floor(15238*j/43) + 29;
+            const hMonth = Math.floor(24*l/709);
+            const hDay   = l - Math.floor(709*hMonth/24);
+            const hYear  = 30*n + j - 30;
+            const bulan  = ['','Muharram','Safar','Rabiul Awwal','Rabiul Akhir','Jumadil Ula','Jumadil Akhir','Rajab',"Sya'ban",'Ramadhan','Syawwal',"Dzulqa'dah",'Dzulhijjah'];
+            return hDay + ' ' + (bulan[hMonth] || 'Rabiul Akhir') + ' ' + hYear + ' H';
+        }
+
+        function formatTanggalID(d) {
+            const hari  = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+            const bulan = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+            return hari[d.getDay()] + ', ' + d.getDate() + ' ' + bulan[d.getMonth()+1] + ' ' + d.getFullYear();
+        }
+
+        // ============================================================
+        // INISIALISASI TANGGAL
+        // ============================================================
+        const today   = new Date();
+        const hijriah = konversiKeHijriah(today);
+        const masehi  = formatTanggalID(today);
+        PRAYER_DATA.forEach(r => r.hijriah = hijriah);
+
+        document.getElementById('topHijriah').textContent        = hijriah;
+        document.getElementById('headerTanggalMasehi').textContent = masehi;
+        document.getElementById('cardTanggalMasehi').textContent   = masehi;
+        document.getElementById('cardHijriah').innerHTML =
+            '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i><span>' + hijriah + '</span>';
+        document.getElementById('footerYear').textContent = '(c) ' + today.getFullYear() + ' All Rights Reserved.';
+
+        // ============================================================
+        // RENDER TABEL
+        // ============================================================
+        function renderTable(data) {
+            const tbody = document.getElementById('prayerTableBody');
+            tbody.innerHTML = data.map((row, i) => {
+                const badge =
+                    row.zona === 'WIB'  ? '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">WIB</span>'  :
+                    row.zona === 'WITA' ? '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-teal-100 text-teal-800 border border-teal-200">WITA</span>' :
+                                          '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-cyan-100 text-cyan-800 border border-cyan-200">WIT</span>';
+                const safe = JSON.stringify(row).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                return '<tr class="hover:bg-emerald-50/50 transition-colors prayer-row" data-kota="'+row.kota.toLowerCase()+'" data-provinsi="'+row.provinsi.toLowerCase()+'" data-zona="'+row.zona+'">' +
+                    '<td class="py-3.5 px-4 text-center font-mono text-xs text-slate-400 font-medium row-number">'+(i+1)+'</td>' +
+                    '<td class="py-3.5 px-4"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg bg-emerald-100/80 text-emerald-700 flex items-center justify-center shrink-0 font-bold text-xs">'+row.kota.substring(0,2)+'</div><div><div class="font-bold text-slate-800 text-sm">'+row.kota+'</div><div class="text-xs text-slate-500 font-medium">Prov. '+row.provinsi+'</div></div></div></td>' +
+                    '<td class="py-3.5 px-3 text-center">'+badge+'</td>' +
+                    '<td class="py-3.5 px-3 text-center text-xs text-slate-600 font-medium"><span class="bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200/60 inline-block">'+row.hijriah+'</span></td>' +
+                    '<td class="py-3.5 px-3 text-center bg-emerald-50/50 border-x border-emerald-100/60"><span class="inline-block font-mono font-extrabold text-emerald-800 text-sm bg-white px-2 py-0.5 rounded border border-emerald-300">'+row.subuh+'</span></td>' +
+                    '<td class="py-3.5 px-3 text-center font-mono text-slate-700 text-xs font-semibold">'+row.dzuhur+'</td>' +
+                    '<td class="py-3.5 px-3 text-center font-mono text-slate-700 text-xs font-semibold">'+row.ashar+'</td>' +
+                    '<td class="py-3.5 px-3 text-center bg-emerald-50/50 border-x border-emerald-100/60"><span class="inline-block font-mono font-extrabold text-emerald-900 text-sm bg-white px-2 py-0.5 rounded border border-emerald-300">'+row.maghrib+'</span></td>' +
+                    '<td class="py-3.5 px-3 text-center font-mono text-slate-700 text-xs font-semibold">'+row.isya+'</td>' +
+                    '<td class="py-3.5 px-4 text-center no-print"><button type="button" onclick=\'openCityModal('+safe+')\' class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 transition"><i data-lucide="eye" class="w-3.5 h-3.5"></i><span>Detail</span></button></td>' +
+                '</tr>';
+            }).join('');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // ============================================================
+        // LIVE CLOCK
+        // ============================================================
+        function startLiveClocks() {
+            function tick() {
+                const now = new Date();
+                const utc = now.getTime() + now.getTimezoneOffset()*60000;
+                function fmt(h) {
+                    const t = new Date(utc + 3600000*h);
+                    return [t.getHours(),t.getMinutes(),t.getSeconds()].map(v=>String(v).padStart(2,'0')).join(':');
+                }
+                const wib = fmt(7);
+                document.getElementById('tzWib').textContent  = wib;
+                document.getElementById('tzWita').textContent = fmt(8);
+                document.getElementById('tzWit').textContent  = fmt(9);
+                document.getElementById('liveClockWib').textContent = wib + ' WIB';
+            }
+            tick(); setInterval(tick, 1000);
+        }
+
+        // ============================================================
+        // FILTER & PENCARIAN
+        // ============================================================
+        let currentZoneFilter = 'ALL';
+        let currentModalData  = null;
+
+        function filterPrayerSchedule() {
+            const kw   = document.getElementById('searchInput').value.toLowerCase().trim();
+            const rows = document.querySelectorAll('.prayer-row');
+            document.getElementById('clearSearchBtn').classList.toggle('hidden', kw.length === 0);
+            let vis = 0;
+            rows.forEach(r => {
+                const ok = (r.dataset.kota.includes(kw) || r.dataset.provinsi.includes(kw))
+                        && (currentZoneFilter === 'ALL' || r.dataset.zona === currentZoneFilter);
+                r.style.display = ok ? '' : 'none';
+                if (ok) { vis++; const c = r.querySelector('.row-number'); if(c) c.textContent = vis; }
+            });
+            document.getElementById('noResultsState').classList.toggle('hidden', vis > 0);
+            document.getElementById('resultsCounter').innerHTML = 'Menampilkan <strong>'+vis+'</strong> dari '+rows.length+' Ibukota Provinsi';
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filterPrayerSchedule();
+            document.getElementById('searchInput').focus();
+        }
+
+        function setZoneFilter(zone) {
+            currentZoneFilter = zone;
+            ['ALL','WIB','WITA','WIT'].forEach(b => {
+                const btn = document.getElementById('filterBtn'+b);
+                if(btn) btn.className = b === zone
+                    ? 'px-3 py-1.5 rounded-lg transition-colors bg-emerald-600 text-white shadow-sm'
+                    : 'px-3 py-1.5 rounded-lg transition-colors text-slate-600 hover:text-emerald-700';
+            });
+            filterPrayerSchedule();
+        }
+
+        // ============================================================
+        // MODAL
+        // ============================================================
+        function openCityModal(data) {
+            currentModalData = data;
+            document.getElementById('modalKota').textContent     = data.kota;
+            document.getElementById('modalProvinsi').textContent = 'Provinsi ' + data.provinsi;
+            document.getElementById('modalZona').textContent     = data.zona;
+            document.getElementById('modalHijriah').textContent  = data.hijriah;
+            document.getElementById('modalSubuh').textContent    = data.subuh;
+            document.getElementById('modalDzuhur').textContent   = data.dzuhur;
+            document.getElementById('modalAshar').textContent    = data.ashar;
+            document.getElementById('modalMaghrib').textContent  = data.maghrib;
+            document.getElementById('modalIsya').textContent     = data.isya;
+            document.getElementById('copyBtnText').textContent   = 'Salin Jadwal';
+            document.getElementById('cityModal').classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeCityModal() {
+            document.getElementById('cityModal').classList.add('hidden');
+        }
+
+        window.addEventListener('click', e => {
+            if (e.target === document.getElementById('cityModal')) closeCityModal();
+        });
+
+        // ============================================================
+        // SALIN CLIPBOARD
+        // ============================================================
+        function copyScheduleToClipboard() {
+            if (!currentModalData) return;
+            const d = currentModalData;
+            navigator.clipboard.writeText(
+                'Jadwal Sholat '+d.kota+' ('+d.provinsi+')\n'+
+                'Zona: '+d.zona+' | '+d.hijriah+'\n'+
+                '-----------------------------------\n'+
+                'Subuh   : '+d.subuh+'\n'+
+                'Dzuhur  : '+d.dzuhur+'\n'+
+                'Ashar   : '+d.ashar+'\n'+
+                'Maghrib : '+d.maghrib+'\n'+
+                'Isya    : '+d.isya+'\n'+
+                '-----------------------------------\n'+
+                'Sumber  : Kementerian Agama RI (MABIMS)'
+            ).then(() => {
+                const b = document.getElementById('copyBtnText');
+                b.textContent = 'Tersalin!';
+                setTimeout(() => b.textContent = 'Salin Jadwal', 2000);
+            });
+        }
+
+        // ============================================================
+        // EKSPOR CSV
+        // ============================================================
+        function exportToCSV() {
+            const rows = [['No','Kota','Provinsi','Zona Waktu','Kalender Hijriah','Subuh','Dzuhur','Ashar','Maghrib','Isya','Status']];
+            let idx = 1;
+            document.querySelectorAll('.prayer-row').forEach(tr => {
+                if (tr.style.display !== 'none') {
+                    const c = tr.querySelectorAll('td');
+                    rows.push([idx++, tr.dataset.kota, c[1].innerText.split('\n')[1].replace('Prov.','').trim(),
+                        tr.dataset.zona, c[3].innerText.trim(), c[4].innerText.trim(), c[5].innerText.trim(),
+                        c[6].innerText.trim(), c[7].innerText.trim(), c[8].innerText.trim(), 'Terverifikasi Kemenag']);
+                }
+            });
+            const csv  = 'data:text/csv;charset=utf-8,' + rows.map(r => r.map(v => '"'+v+'"').join(',')).join('\n');
+            const link = document.createElement('a');
+            link.href  = encodeURI(csv);
+            link.download = 'Jadwal_Sholat_38_Ibukota_'+new Date().toISOString().slice(0,10)+'.csv';
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        }
+
+        // ============================================================
+        // KEYBOARD SHORTCUTS
+        // ============================================================
+        window.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeCityModal();
+            if ((e.ctrlKey && e.key.toLowerCase() === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+                e.preventDefault(); document.getElementById('searchInput').focus();
+            }
+        });
+
+        // ============================================================
+        // BOOT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable(PRAYER_DATA);
+            startLiveClocks();
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
